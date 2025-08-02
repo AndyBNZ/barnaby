@@ -1,0 +1,30 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - get_time
+  - get_weather
+  - control_lights
+  - affirm
+  - deny
+  - out_of_scope
+
+entities:
+  - location
+  - device
+  - room
+
+responses:
+  utter_greet:
+  - text: "Hello! How can I help you today?"
+  
+  utter_goodbye:
+  - text: "Goodbye! Have a great day!"
+  
+  utter_default:
+  - text: "I'm sorry, I didn't understand that. Can you please rephrase?"
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

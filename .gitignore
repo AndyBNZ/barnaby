@@ -1,0 +1,271 @@
+# ================================
+# Barnaby Project .gitignore
+# ================================
+
+# --------------------------------
+# Rust Backend (.rs, Cargo)
+# --------------------------------
+
+# Cargo build artifacts
+backend/target/
+**/target/
+
+# Cargo lock file (uncomment if this is a library)
+# backend/Cargo.lock
+
+# Rust backup files
+**/*.rs.bk
+
+# IDE files for Rust
+**/*.swp
+**/*.swo
+**/Session.vim
+**/.vscode/
+**/.idea/
+**/*.iml
+
+# --------------------------------
+# Flutter/Dart Frontend
+# --------------------------------
+
+# Dart/Flutter build outputs (mobile-app)
+mobile-app/build/
+mobile-app/.dart_tool/
+mobile-app/.flutter-plugins
+mobile-app/.flutter-plugins-dependencies
+mobile-app/.packages
+mobile-app/.pub-cache/
+mobile-app/.pub/
+mobile-app/pubspec.lock
+
+# Dart/Flutter build outputs (web-ui)
+web-ui/build/
+web-ui/.dart_tool/
+web-ui/.flutter-plugins
+web-ui/.flutter-plugins-dependencies
+web-ui/.packages
+web-ui/.pub-cache/
+web-ui/.pub/
+web-ui/pubspec.lock
+
+# Generated files
+mobile-app/**/*.g.dart
+mobile-app/**/*.freezed.dart
+mobile-app/**/*.mocks.dart
+
+# Flutter coverage
+mobile-app/coverage/
+
+# Flutter web specific
+mobile-app/web/
+
+# Android specific
+mobile-app/android/.gradle/
+mobile-app/android/app/debug/
+mobile-app/android/app/profile/
+mobile-app/android/app/release/
+mobile-app/android/.gradletasknamecache
+mobile-app/android/gradle.properties
+mobile-app/android/local.properties
+mobile-app/android/key.properties
+
+# iOS specific
+mobile-app/ios/Flutter/Generated.xcconfig
+mobile-app/ios/Flutter/flutter_export_environment.sh
+mobile-app/ios/Flutter/App.framework
+mobile-app/ios/Flutter/Flutter.framework
+mobile-app/ios/Flutter/ephemeral/
+mobile-app/ios/Pods/
+mobile-app/ios/Podfile.lock
+mobile-app/ios/.symlinks/
+mobile-app/ios/Runner.xcworkspace/xcuserdata/
+mobile-app/ios/Runner.xcodeproj/xcuserdata/
+
+# macOS specific
+mobile-app/macos/Flutter/Generated.xcconfig
+mobile-app/macos/Flutter/ephemeral/
+
+# Linux specific
+mobile-app/linux/flutter/generated_plugin_registrant.cc
+mobile-app/linux/flutter/generated_plugin_registrant.h
+mobile-app/linux/flutter/generated_plugins.cmake
+
+# Windows specific  
+mobile-app/windows/flutter/generated_plugin_registrant.cc
+mobile-app/windows/flutter/generated_plugin_registrant.h
+mobile-app/windows/flutter/generated_plugins.cmake
+
+# --------------------------------
+# Database Files
+# --------------------------------
+
+# SQLite databases
+**/*.db
+**/*.sqlite
+**/*.sqlite3
+**/*.db-journal
+**/*.db-wal
+**/*.db-shm
+
+# --------------------------------
+# Environment & Configuration
+# --------------------------------
+
+# Environment files
+**/.env
+**/.env.local
+**/.env.*.local
+
+# Configuration files that might contain secrets
+**/config/local.toml
+**/config/development.toml
+**/config/production.toml
+
+# --------------------------------
+# Logs & Temporary Files
+# --------------------------------
+
+# Log files
+**/*.log
+**/logs/
+**/log/
+
+# Runtime data
+**/pids
+**/*.pid
+**/*.seed
+**/*.pid.lock
+
+# Temporary files
+**/tmp/
+**/temp/
+**/.tmp/
+**/.temp/
+
+# --------------------------------
+# OS Generated Files
+# --------------------------------
+
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Windows
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+
+# --------------------------------
+# Docker & Container Files
+# --------------------------------
+
+# Docker
+.dockerignore
+Dockerfile.local
+docker-compose.override.yml
+docker-compose.local.yml
+
+# --------------------------------
+# IDE & Editor Files
+# --------------------------------
+
+# VSCode
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# Vim
+*.swp
+*.swo
+*~
+Session.vim
+.netrwhist
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# Sublime Text
+*.sublime-workspace
+*.sublime-project
+
+# --------------------------------
+# Version Control
+# --------------------------------
+
+# Git
+*.orig
+*.rej
+
+# --------------------------------
+# Security & Certificates
+# --------------------------------
+
+# Certificates
+**/*.pem
+**/*.key
+**/*.crt
+**/*.p12
+**/*.pfx
+
+# SSH keys
+**/*_rsa
+**/*_dsa
+**/*_ed25519
+**/*_ecdsa
+
+# --------------------------------
+# Backup Files
+# --------------------------------
+
+# Backup files
+**/*.bak
+**/*.backup
+**/*.old
+**/*.orig
+
+# --------------------------------
+# Misc Generated Files
+# --------------------------------
+
+# Node modules (if any Node.js tools are used)
+**/node_modules/
+
+# Python (if any Python tools are used)
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+**/*.pyd
+.Python
+**/pip-log.txt
+
+# Test coverage
+**/coverage/
+**/.coverage
+**/.nyc_output
+
+# Generated documentation
+**/doc/
+**/docs/build/
+**/site/

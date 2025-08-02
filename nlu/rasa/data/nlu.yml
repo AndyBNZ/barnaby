@@ -1,0 +1,83 @@
+version: "3.1"
+
+nlu:
+- intent: greet
+  examples: |
+    - hello
+    - hi
+    - hey
+    - good morning
+    - good evening
+    - hey there
+    - hi there
+
+- intent: goodbye
+  examples: |
+    - goodbye
+    - bye
+    - see you later
+    - talk to you later
+    - bye bye
+    - farewell
+
+- intent: get_time
+  examples: |
+    - what time is it
+    - tell me the time
+    - what's the current time
+    - time please
+    - current time
+    - what time
+    - time
+    - clock
+
+- intent: get_weather
+  examples: |
+    - what's the weather
+    - weather forecast
+    - how's the weather
+    - weather today
+    - is it raining
+    - temperature outside
+    - weather report
+    - what's it like outside
+
+- intent: control_lights
+  examples: |
+    - turn on the lights
+    - turn off the lights
+    - lights on
+    - lights off
+    - switch on lights
+    - switch off lights
+    - turn on [living room](room) lights
+    - turn off [bedroom](room) lights
+    - dim the lights
+    - brighten the lights
+
+- intent: affirm
+  examples: |
+    - yes
+    - yeah
+    - yep
+    - sure
+    - of course
+    - that's right
+    - correct
+
+- intent: deny
+  examples: |
+    - no
+    - nope
+    - not really
+    - I don't think so
+    - no thanks
+    - that's wrong
+
+- intent: out_of_scope
+  examples: |
+    - I want to order pizza
+    - what's your favorite color
+    - tell me a joke
+    - sing a song
+    - what's the meaning of life

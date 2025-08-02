@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  rasa:
+    build: ./nlu/rasa
+    ports:
+      - "5005:5005"
+    volumes:
+      - ./nlu/rasa:/app
+    environment:
+      - RASA_MODEL_SERVER=http://localhost:5005
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5005/status"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
