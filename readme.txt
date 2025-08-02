@@ -1,3 +1,7 @@
+**********************************************************
+*********Still in development - not ready for use*********
+**********************************************************
+
 1. Project Overview
 Build a privacy-focused, modular, offline-first voice assistant platform that:
 
