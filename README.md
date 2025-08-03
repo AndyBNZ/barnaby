@@ -23,8 +23,12 @@ cd backend
 ```bash
 cargo run
 ```
+or
+```bash
+cargo run --bin barnaby-server
+```
 
-The server will start on `http://localhost:8080`
+The server will start on `http://localhost:8080` or `http://0.0.0.0:8080`
 
 ### Running the Web UI
 
@@ -36,7 +40,7 @@ cd web-ui
 2. Install dependencies and run:
 ```bash
 flutter pub get
-flutter run -d chrome
+flutter run -d web-server --web-port 8080 --web-hostname 0.0.0.0
 ```
 
 ### Running the Mobile App
