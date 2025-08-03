@@ -260,6 +260,11 @@ tramp
 .Python
 **/pip-log.txt
 
+# Python virtual environments
+**/venv/
+**/env/
+**/*env/
+
 # --------------------------------
 # Rasa NLU Files
 # --------------------------------
@@ -267,8 +272,15 @@ tramp
 # Rasa trained models
 nlu/rasa/models/
 
+# Rasa cache and temporary files
+nlu/rasa/.rasa/
+
 # Rasa feedback data (contains user input)
 nlu/rasa/data/feedback.yml
+
+# Rasa logs
+nlu/rasa/rasa.log
+nlu/rasa/*.log
 
 # Test coverage
 **/coverage/
