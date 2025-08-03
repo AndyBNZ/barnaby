@@ -1,0 +1,20 @@
+[
+  {
+    "tag_name": "entity",
+    "ids_to_tags": {
+      "1": "B-room",
+      "2": "I-room",
+      "3": "L-room",
+      "4": "U-room",
+      "0": "O"
+    },
+    "tags_to_ids": {
+      "B-room": 1,
+      "I-room": 2,
+      "L-room": 3,
+      "U-room": 4,
+      "O": 0
+    },
+    "num_tags": 5
+  }
+]

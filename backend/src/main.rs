@@ -19,12 +19,14 @@ use tracing_subscriber;
 
 use config::Settings;
 use mqtt::MqttService;
+use nlu::RasaManager;
 
 #[derive(Clone)]
 pub struct AppState {
     pub db: SqlitePool,
     pub config: Settings,
     pub mqtt: Option<MqttService>,
+    pub nlu_url: String,
 }
 
 
@@ -56,8 +58,11 @@ async fn main() {
         }
     };
 
-    // Using Rust NLU instead of Rasa
-    info!("Using Rust-based NLU for intent parsing");
+    // Start Rasa NLU server
+    let mut rasa_manager = RasaManager::new();
+    if let Err(e) = rasa_manager.start().await {
+        error!("Failed to start Rasa NLU: {}. Falling back to Rust NLU.", e);
+    }
 
     // MQTT client disabled for now - can be enabled when broker is available
     info!("MQTT client disabled - enable when broker is configured");
@@ -68,6 +73,7 @@ async fn main() {
         db,
         config: config.clone(),
         mqtt,
+        nlu_url: "http://localhost:5005".to_string(),
     };
 
     // Build application with routes

@@ -61,11 +61,19 @@ pub async fn process_voice_command(
     
     info!("Transcription: {}", transcription);
     
-    // 2. Intent parsing using Rust NLU
-    let rust_nlu = RustNlu::new();
-    let (intent_result, _entities) = rust_nlu.parse(transcription);
-    let intent = intent_result.name.clone();
-    info!("Rust NLU response: intent={}, confidence={:.2}", intent, intent_result.confidence);
+    // 2. Intent parsing using Rasa NLU with Rust NLU fallback
+    let nlu_service = NluService::new(state.nlu_url.clone());
+    let (intent, confidence) = match nlu_service.parse_intent(transcription).await {
+        Ok(response) => (response.intent.name, response.intent.confidence),
+        Err(e) => {
+            info!("Rasa NLU failed, using Rust NLU fallback: {}", e);
+            let rust_nlu = RustNlu::new();
+            let (intent_result, _entities) = rust_nlu.parse(transcription);
+            (intent_result.name, intent_result.confidence)
+        }
+    };
+    info!("NLU response: intent={}, confidence={:.2}", intent, confidence);
+    info!("NLU response: intent={}, confidence={:.2}", intent, confidence);
     
     info!("Detected intent: {}", intent);
     
@@ -86,7 +94,7 @@ pub async fn process_voice_command(
     .bind(transcription)
     .bind(&intent)
     .bind(&response)
-    .bind(0.95f32)
+    .bind(confidence as f32)
     .bind(150i32)
     .execute(&state.db)
     .await
@@ -120,6 +128,10 @@ fn execute_command(intent: &str) -> String {
         "get_time" => {
             let now = chrono::Utc::now();
             format!("The current time is {}", now.format("%H:%M"))
+        }
+        "get_timezone" => {
+            let now = chrono::Local::now();
+            format!("You are in timezone: {}", now.format("%Z %z"))
         }
         "get_weather" => "I'm sorry, weather service is not yet configured.".to_string(),
         "control_lights" => "Light control is not yet implemented.".to_string(),

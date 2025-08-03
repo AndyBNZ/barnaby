@@ -21,9 +21,33 @@ impl RasaManager {
 
         info!("Starting Rasa NLU server...");
 
-        // Check if rasa command exists
+        // Check if rasa command exists, install if not
         if Command::new("rasa").arg("--version").output().is_err() {
-            return Err("Rasa not installed. Install with: python3 -m pip install rasa==3.6.4".into());
+            info!("Rasa not found, attempting installation...");
+            
+            // Try different pip installation methods
+            let install_commands = vec![
+                ("pip3.10", vec!["install", "rasa==3.6.4"]),
+                ("pip3", vec!["install", "rasa==3.6.4"]),
+                ("python3.10", vec!["-m", "pip", "install", "rasa==3.6.4"]),
+                ("python3", vec!["-m", "pip", "install", "rasa==3.6.4"]),
+            ];
+            
+            let mut install_success = false;
+            for (cmd, args) in install_commands {
+                info!("Trying: {} {}", cmd, args.join(" "));
+                if let Ok(output) = Command::new(cmd).args(&args).output() {
+                    if output.status.success() {
+                        info!("Rasa installed successfully with {}", cmd);
+                        install_success = true;
+                        break;
+                    }
+                }
+            }
+            
+            if !install_success {
+                return Err("Failed to install Rasa. Please install manually: pip install rasa==3.6.4".into());
+            }
         }
 
         // Check if model exists, train if not

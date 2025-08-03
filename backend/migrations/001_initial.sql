@@ -52,4 +52,4 @@ CREATE TABLE config (
 
 -- Insert default admin user (password: admin123)
 INSERT INTO users (id, username, email, password_hash, role) VALUES 
-('admin-001', 'admin', 'admin@barnaby.local', '$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewdBPj/RK.PJ/..G', 'admin');
+('admin-001', 'admin', 'admin@barnaby.local', '$2b$12$Ev7dYM1ZZrUIOe31e6HHKuFLMocxY1HWtKj/4OvB.tN1bJfwZxlxi', 'admin');

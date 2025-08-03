@@ -37,19 +37,19 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Icon(
-                      Icons.mic,
-                      size: 64,
-                      color: Colors.blue,
+                    Image.asset(
+                      'assets/images/barnaby.png',
+                      width: 128,
+                      height: 128,
                     ),
                     const SizedBox(height: 16),
                     Text(
-                      'Barnaby Admin',
+                      'Barnaby',
                       style: Theme.of(context).textTheme.headlineMedium,
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      'Voice Assistant Management',
+                      'Your digital butler',
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         color: Colors.grey[600],
                       ),

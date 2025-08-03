@@ -9,4 +9,5 @@ pub fn create_routes() -> Router<AppState> {
         .nest("/api/users", routes::users::create_routes())
         .nest("/api/audio", routes::audio::create_routes())
         .nest("/api/commands", routes::commands::create_routes())
+        .nest("/api/feedback", routes::feedback::create_routes())
 }

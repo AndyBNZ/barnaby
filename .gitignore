@@ -260,6 +260,16 @@ tramp
 .Python
 **/pip-log.txt
 
+# --------------------------------
+# Rasa NLU Files
+# --------------------------------
+
+# Rasa trained models
+nlu/rasa/models/
+
+# Rasa feedback data (contains user input)
+nlu/rasa/data/feedback.yml
+
 # Test coverage
 **/coverage/
 **/.coverage

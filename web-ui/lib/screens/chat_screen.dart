@@ -26,7 +26,17 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Barnaby Assistant'),
+        title: Row(
+          children: [
+            Image.asset(
+              'assets/images/barnaby.png',
+              width: 32,
+              height: 32,
+            ),
+            const SizedBox(width: 8),
+            const Text('Barnaby Assistant'),
+          ],
+        ),
         actions: [
           Consumer<AuthProvider>(
             builder: (context, authProvider, child) {

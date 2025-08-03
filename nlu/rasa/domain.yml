@@ -4,6 +4,7 @@ intents:
   - greet
   - goodbye
   - get_time
+  - get_timezone
   - get_weather
   - control_lights
   - affirm

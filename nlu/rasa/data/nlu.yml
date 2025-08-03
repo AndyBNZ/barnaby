@@ -74,6 +74,16 @@ nlu:
     - no thanks
     - that's wrong
 
+- intent: get_timezone
+  examples: |
+    - what timezone am I in
+    - what's my timezone
+    - which timezone
+    - timezone
+    - what time zone
+    - current timezone
+    - my time zone
+
 - intent: out_of_scope
   examples: |
     - I want to order pizza
