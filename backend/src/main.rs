@@ -5,6 +5,7 @@ mod database;
 mod middleware;
 mod mqtt;
 mod nlu;
+mod services;
 
 use axum::{
     routing::get,

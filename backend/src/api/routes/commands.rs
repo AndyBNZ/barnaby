@@ -9,7 +9,7 @@ use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};
 use uuid::Uuid;
 
-use crate::{database::models::CommandHistory, nlu::{NluService, RustNlu}, AppState};
+use crate::{database::models::CommandHistory, nlu::{NluService, RustNlu}, services::weather::WeatherService, AppState};
 use tracing::info;
 
 #[derive(Debug, Deserialize)]
@@ -63,22 +63,23 @@ pub async fn process_voice_command(
     
     // 2. Intent parsing using Rasa NLU with Rust NLU fallback
     let nlu_service = NluService::new(state.nlu_url.clone());
-    let (intent, confidence) = match nlu_service.parse_intent(transcription).await {
-        Ok(response) => (response.intent.name, response.intent.confidence),
+    let rust_nlu = RustNlu::new();
+    let (rust_intent, rust_entities) = rust_nlu.parse(transcription);
+    
+    let (intent, confidence, entities) = match nlu_service.parse_intent(transcription).await {
+        Ok(response) => (response.intent.name, response.intent.confidence, rust_entities),
         Err(e) => {
             info!("Rasa NLU failed, using Rust NLU fallback: {}", e);
-            let rust_nlu = RustNlu::new();
-            let (intent_result, _entities) = rust_nlu.parse(transcription);
-            (intent_result.name, intent_result.confidence)
+            (rust_intent.name, rust_intent.confidence, rust_entities)
         }
     };
     info!("NLU response: intent={}, confidence={:.2}", intent, confidence);
-    info!("NLU response: intent={}, confidence={:.2}", intent, confidence);
+    info!("Extracted entities: {:?}", entities);
     
     info!("Detected intent: {}", intent);
     
     // 3. Command execution
-    let response = execute_command(&intent);
+    let response = execute_command(&intent, &entities).await;
     info!("Generated response: {}", response);
     
     // 4. TTS: Convert response to audio
@@ -123,7 +124,7 @@ fn parse_intent_fallback(text: &str) -> String {
     }
 }
 
-fn execute_command(intent: &str) -> String {
+async fn execute_command(intent: &str, entities: &[crate::nlu::RustEntity]) -> String {
     match intent {
         "get_time" => {
             let now = chrono::Utc::now();
@@ -133,7 +134,42 @@ fn execute_command(intent: &str) -> String {
             let now = chrono::Local::now();
             format!("You are in timezone: {}", now.format("%Z %z"))
         }
-        "get_weather" => "I'm sorry, weather service is not yet configured.".to_string(),
+        "get_weather" => {
+            let weather_service = WeatherService::new();
+            
+            // Check if location entity is present
+            let location_entity = entities.iter().find(|e| e.name == "location");
+            info!("Location entity found: {:?}", location_entity);
+            
+            let result = if let Some(location) = location_entity {
+                info!("Getting weather for location: {}", location.value);
+                weather_service.get_weather_for_location(&location.value).await
+            } else {
+                info!("No location specified, getting current weather");
+                weather_service.get_current_weather().await
+            };
+            
+            match result {
+                Ok(weather) => {
+                    let location_text = if let Some(loc) = location_entity {
+                        format!(" in {}", loc.value)
+                    } else {
+                        " for your location".to_string()
+                    };
+                    format!(
+                        "The current weather{} is {}°C with {}. Wind speed is {} km/h.",
+                        location_text, weather.temperature, weather.description, weather.wind_speed
+                    )
+                },
+                Err(e) => {
+                    if e.to_string().contains("Location not found") {
+                        "Sorry, I couldn't find that location. Please try a different city name.".to_string()
+                    } else {
+                        "Sorry, there's a connection issue and I cannot get that information right now.".to_string()
+                    }
+                }
+            }
+        }
         "control_lights" => "Light control is not yet implemented.".to_string(),
         "greet" => "Hello! How can I help you today?".to_string(),
         "goodbye" => "Goodbye! Have a great day!".to_string(),

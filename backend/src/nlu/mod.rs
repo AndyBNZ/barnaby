@@ -4,7 +4,7 @@ use reqwest;
 mod rasa_manager;
 mod rust_nlu;
 pub use rasa_manager::RasaManager;
-pub use rust_nlu::RustNlu;
+pub use rust_nlu::{RustNlu, Entity as RustEntity};
 
 #[derive(Debug, Serialize)]
 pub struct NluRequest {

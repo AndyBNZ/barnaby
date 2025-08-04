@@ -155,6 +155,26 @@ impl RustNlu {
             }
         }
 
+        // Extract location entities for weather
+        if intent == "get_weather" {
+            println!("Extracting location from text: '{}'", text);
+            let location_regex = Regex::new(r"(?i)(?:in|for|at)\s+([a-zA-Z\s,]+?)(?:\?|$)").unwrap();
+            if let Some(captures) = location_regex.captures(text) {
+                if let Some(location_match) = captures.get(1) {
+                    let location_value = location_match.as_str().trim().to_string();
+                    println!("Found location: '{}'", location_value);
+                    entities.push(Entity {
+                        name: "location".to_string(),
+                        value: location_value,
+                        start: location_match.start(),
+                        end: location_match.end(),
+                    });
+                }
+            } else {
+                println!("No location match found in: '{}'", text);
+            }
+        }
+
         entities
     }
 }

@@ -14,11 +14,13 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   final _messageController = TextEditingController();
   final _scrollController = ScrollController();
+  final _focusNode = FocusNode();
 
   @override
   void dispose() {
     _messageController.dispose();
     _scrollController.dispose();
+    _focusNode.dispose();
     super.dispose();
   }
 
@@ -163,6 +165,7 @@ class _ChatScreenState extends State<ChatScreen> {
           Expanded(
             child: TextField(
               controller: _messageController,
+              focusNode: _focusNode,
               decoration: const InputDecoration(
                 hintText: 'Type your message...',
                 border: OutlineInputBorder(),
@@ -200,6 +203,9 @@ class _ChatScreenState extends State<ChatScreen> {
     print('Calling chatProvider.sendMessage');
     chatProvider.sendMessage(text);
     _messageController.clear();
+
+    // Return focus to input field
+    _focusNode.requestFocus();
 
     // Scroll to bottom
     WidgetsBinding.instance.addPostFrameCallback((_) {
