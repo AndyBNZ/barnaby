@@ -36,7 +36,7 @@ class _ChatScreenState extends State<ChatScreen> {
               height: 32,
             ),
             const SizedBox(width: 8),
-            const Text('Barnaby Assistant'),
+            const Text('Barnaby Digital Butler'),
           ],
         ),
         actions: [

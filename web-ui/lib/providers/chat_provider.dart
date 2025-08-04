@@ -13,7 +13,7 @@ class ChatProvider extends ChangeNotifier {
   void addWelcomeMessage() {
     if (_messages.isEmpty) {
       _messages.add(ChatMessage.assistant(
-        "Hello! I'm Barnaby, your voice assistant. How can I help you today?",
+        "Hello! I'm Barnaby, your digital butler. How can I help you today?",
       ));
       notifyListeners();
     }

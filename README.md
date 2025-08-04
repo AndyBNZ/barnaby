@@ -79,7 +79,7 @@ docker-compose up -d
 
 ## Project Overview
 
-Build a privacy-focused, modular, offline-first voice assistant platform that:
+Build a privacy-focused, modular, offline-first digital butler platform that:
 
 - Runs on a local server (Rust backend) with optional multi-user support
 - Supports headless Raspberry Pi Zero W satellites for audio capture + wake word detection
@@ -135,7 +135,7 @@ Build a privacy-focused, modular, offline-first voice assistant platform that:
 ### Flutter Mobile App
 - Login / Logout
 - Voice command trigger (mic button)
-- View recent commands and assistant responses
+- View recent commands and butler responses
 - Send text commands manually
 - Show system status (satellite connection, server uptime)
 - Optional push notifications (future)

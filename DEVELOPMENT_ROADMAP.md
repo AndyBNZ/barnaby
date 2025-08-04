@@ -1,4 +1,4 @@
-# Barnaby Voice Assistant Development Roadmap
+# Barnaby Digital Butler Development Roadmap
 
 ## Quick Start Guide
 
@@ -288,4 +288,4 @@ async fn process_audio(audio_data: Vec<u8>) -> Result<String> {
 4. **Begin with authentication system** - Foundation for all other features
 5. **Test early and often** - Don't wait until the end to integrate components
 
-This roadmap provides a clear path from concept to production-ready voice assistant system. Each phase builds on the previous one, ensuring you have a working system at every milestone.
+This roadmap provides a clear path from concept to production-ready digital butler system. Each phase builds on the previous one, ensuring you have a working system at every milestone.

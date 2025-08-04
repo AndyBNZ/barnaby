@@ -1,4 +1,4 @@
-# Barnaby Voice Assistant Technical Specification
+# Barnaby Digital Butler Technical Specification
 
 ## 1. System Architecture
 

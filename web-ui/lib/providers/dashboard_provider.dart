@@ -51,14 +51,14 @@ class DashboardProvider extends ChangeNotifier {
       _satellites = [
         Satellite(
           id: 'sat-001',
-          name: 'Kitchen Assistant',
+          name: 'Kitchen Butler',
           status: 'online',
           lastSeen: DateTime.now().subtract(const Duration(minutes: 2)),
           createdAt: DateTime.now().subtract(const Duration(days: 5)),
         ),
         Satellite(
           id: 'sat-002',
-          name: 'Living Room Assistant',
+          name: 'Living Room Butler',
           status: 'offline',
           lastSeen: DateTime.now().subtract(const Duration(hours: 2)),
           createdAt: DateTime.now().subtract(const Duration(days: 3)),

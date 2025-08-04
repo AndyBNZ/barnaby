@@ -39,7 +39,7 @@ async fn main() {
         .with_max_level(Level::INFO)
         .init();
 
-    info!("Starting Barnaby Voice Assistant server...");
+    info!("Starting Barnaby Digital Butler server...");
 
     // Load configuration
     let config = match Settings::new() {
@@ -104,7 +104,7 @@ async fn main() {
 
 async fn root() -> Json<Value> {
     Json(json!({
-        "message": "Barnaby Voice Assistant is running!",
+        "message": "Barnaby Digital Butler is running!",
         "version": "0.1.0",
         "status": "operational"
     }))
@@ -114,6 +114,6 @@ async fn health_check() -> Json<Value> {
     Json(json!({
         "status": "healthy",
         "timestamp": chrono::Utc::now(),
-        "service": "barnaby-voice-assistant"
+        "service": "barnaby-digital-butler"
     }))
 }
