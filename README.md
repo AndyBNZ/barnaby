@@ -27,6 +27,10 @@ or
 ```bash
 cargo run --bin barnaby-server
 ```
+To work with a mock model runthe below, otherwise you will need to setup a LLM model before Barnaby can be used with LLM if no model path is found it will fallback to a more basic functionality for intent parsing
+```bash
+export PICOLLM_MODEL_PATH="/tmp/mock-model"
+```
 
 The server will start on `http://localhost:8080` or `http://0.0.0.0:8080`
 
