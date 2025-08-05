@@ -21,6 +21,7 @@ use tracing_subscriber;
 use config::Settings;
 use mqtt::MqttService;
 use nlu::RasaManager;
+use services::llm::LlmService;
 
 #[derive(Clone)]
 pub struct AppState {
@@ -28,6 +29,7 @@ pub struct AppState {
     pub config: Settings,
     pub mqtt: Option<MqttService>,
     pub nlu_url: String,
+    pub llm_service: Option<LlmService>,
 }
 
 
@@ -69,12 +71,32 @@ async fn main() {
     info!("MQTT client disabled - enable when broker is configured");
     let mqtt = None;
 
+    // Initialize LLM service (optional)
+    let llm_service = if let Ok(model_path) = std::env::var("PICOLLM_MODEL_PATH") {
+        info!("Initializing picoLLM with model: {}", model_path);
+        let llm = LlmService::new(model_path);
+        match llm.initialize().await {
+            Ok(_) => {
+                info!("picoLLM initialized successfully");
+                Some(llm)
+            }
+            Err(e) => {
+                info!("picoLLM initialization failed: {}, continuing without LLM", e);
+                None
+            }
+        }
+    } else {
+        info!("PICOLLM_MODEL_PATH not set, running without LLM enhancement");
+        None
+    };
+
     // Create application state
     let state = AppState {
         db,
         config: config.clone(),
         mqtt,
         nlu_url: "http://localhost:5005".to_string(),
+        llm_service,
     };
 
     // Build application with routes
