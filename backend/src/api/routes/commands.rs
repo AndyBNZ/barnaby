@@ -61,15 +61,24 @@ pub async fn process_voice_command(
     
     info!("Transcription: {}", transcription);
     
-    // 2. Intent parsing using Rasa NLU with Rust NLU fallback
-    let nlu_service = NluService::new(state.nlu_url.clone());
+    // 2. Intent parsing using LLM -> Rasa NLU -> Rust NLU fallback chain
+    let mut nlu_service = NluService::new(state.nlu_url.clone());
+    
+    // Add LLM service if available
+    if let Some(llm) = &state.llm_service {
+        nlu_service = nlu_service.with_llm(llm.clone());
+    }
+    
     let rust_nlu = RustNlu::new();
     let (rust_intent, rust_entities) = rust_nlu.parse(transcription);
     
-    let (intent, confidence, entities) = match nlu_service.parse_intent(transcription).await {
-        Ok(response) => (response.intent.name, response.intent.confidence, rust_entities),
+    let (intent, confidence, entities) = match nlu_service.parse_intent_with_llm(transcription).await {
+        Ok(response) => {
+            info!("LLM/Rasa NLU success: intent={}, confidence={:.2}", response.intent.name, response.intent.confidence);
+            (response.intent.name, response.intent.confidence, rust_entities)
+        }
         Err(e) => {
-            info!("Rasa NLU failed, using Rust NLU fallback: {}", e);
+            info!("LLM/Rasa NLU failed, using Rust NLU fallback: {}", e);
             (rust_intent.name, rust_intent.confidence, rust_entities)
         }
     };

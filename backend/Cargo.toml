@@ -49,6 +49,9 @@ regex = "1.0"
 # URL encoding
 urlencoding = "2.1"
 
+# Local LLM - Mock implementation for now (ready for real LLM integration)
+# Future: Add actual LLM crate here
+
 # Audio (placeholder - will need platform-specific setup)
 # whisper-rs = "0.10"  # Uncomment when ready for STT
 # tts = "0.26"         # Uncomment when ready for TTS
